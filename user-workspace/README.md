@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vietnamese E-commerce System
 
-## Getting Started
+Hệ thống thương mại điện tử toàn diện được xây dựng với Laravel, React và React Native.
 
-First, run the development server:
+## Cấu Trúc Dự Án
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+/
+├── laravel-api/    # Backend API với Laravel + Sanctum
+├── web-app/        # Frontend với React + TailwindCSS
+└── mobile-app/     # Ứng dụng di động với React Native
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Modules
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. Laravel API (Backend)
+- RESTful API với Laravel và Sanctum
+- Xử lý thanh toán qua VNPay
+- Quản lý sản phẩm, đơn hàng, flash sale, và voucher
+- Chi tiết: Xem [laravel-api/README.md](laravel-api/README.md)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Web Frontend
+- React + TailwindCSS
+- SEO động với react-helmet
+- Thanh toán không cần đăng nhập
+- Giao diện quản trị
+- Chi tiết: Xem [web-app/README.md](web-app/README.md)
 
-## Learn More
+### 3. Mobile App
+- React Native
+- Thanh toán yêu cầu đăng nhập
+- Giỏ hàng lưu cục bộ
+- Chi tiết: Xem [mobile-app/README.md](mobile-app/README.md)
 
-To learn more about Next.js, take a look at the following resources:
+## Cài Đặt
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Mỗi module có hướng dẫn cài đặt riêng. Vui lòng tham khảo file README.md trong từng thư mục tương ứng.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Yêu Cầu Hệ Thống
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- PHP >= 8.1
+- Node.js >= 16
+- MySQL >= 8.0
+- Composer
+- npm hoặc yarn
