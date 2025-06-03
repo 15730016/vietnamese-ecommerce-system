@@ -90,3 +90,15 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+
+# Next.js build
+/.next/
+/web-app/.next/
+/web-app/out/
+/web-app/build/
+
+# Các tệp config build của Next.js
+/components.json
+/eslint.config.mjs
+/next-env.d.ts
+
