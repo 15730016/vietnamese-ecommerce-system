@@ -67,6 +67,7 @@ class DemoDataSeeder extends Seeder
                 'price' => 32990000,
                 'category_id' => 1,
                 'brand_id' => 1,
+                'image' => 'uploads/admin/images/logo-haxu-tron.png',
             ],
             [
                 'name' => 'Samsung Galaxy S23 Ultra',
@@ -75,6 +76,7 @@ class DemoDataSeeder extends Seeder
                 'price' => 29990000,
                 'category_id' => 1,
                 'brand_id' => 2,
+                'image' => 'images/logo-haxu-tron.png',
             ],
             [
                 'name' => 'Xiaomi Pad 5',
@@ -83,6 +85,7 @@ class DemoDataSeeder extends Seeder
                 'price' => 8990000,
                 'category_id' => 2,
                 'brand_id' => 3,
+                'image' => 'images/logo-haxu-tron.png',
             ],
         ];
 
@@ -92,9 +95,9 @@ class DemoDataSeeder extends Seeder
 
         // Create product images (example)
         $productImages = [
-            ['product_id' => 1, 'image_path' => 'products/iphone14promax.jpg'],
-            ['product_id' => 2, 'image_path' => 'products/galaxys23ultra.jpg'],
-            ['product_id' => 3, 'image_path' => 'products/xiaomipad5.jpg'],
+            ['product_id' => 1, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
+            ['product_id' => 2, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
+            ['product_id' => 3, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
         ];
 
         foreach ($productImages as $image) {
@@ -105,14 +108,14 @@ class DemoDataSeeder extends Seeder
         $banners = [
             [
                 'title' => 'Khuyến mãi iPhone 14',
-                'image_path' => 'banners/iphone14promo.jpg',
+                'image_path' => 'uploads/admin/images/logo-haxu-tron.png',
                 'link' => '/san-pham/iphone-14-pro-max',
                 'position' => 'home_top',
                 'status' => true,
             ],
             [
                 'title' => 'Samsung Galaxy S23 Ultra',
-                'image_path' => 'banners/galaxys23promo.jpg',
+                'image_path' => 'images/logo-haxu-tron.png',
                 'link' => '/san-pham/samsung-galaxy-s23-ultra',
                 'position' => 'home_top',
                 'status' => true,

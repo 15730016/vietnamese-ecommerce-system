@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -7,9 +7,9 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        primary: '#3AB54A',
-      }
+      fontFamily: {
+        'bevietnam': ['"Be Vietnam Pro"', 'sans-serif'],
+      },
     },
   },
   plugins: [],

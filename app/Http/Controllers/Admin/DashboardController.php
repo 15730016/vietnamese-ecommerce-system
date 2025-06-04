@@ -6,42 +6,54 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $orderCount = Order::count();
-        $todayRevenue = Order::whereDate('created_at', now())->sum('total_amount');
-        $newCustomers = User::whereDate('created_at', now())->count();
+        // Lấy thống kê cho ngày hôm nay
+        $today = Carbon::today();
+        
+        // Đơn hàng và doanh thu hôm nay
+        $todayOrders = Order::whereDate('created_at', $today)->count();
+        $todayRevenue = Order::whereDate('created_at', $today)
+            ->where('status', 'completed')
+            ->sum('total');
 
-        $topProduct = Product::withCount('orderItems')
-            ->orderByDesc('order_items_count')
-            ->first();
+        // Tổng số sản phẩm và người dùng
+        $totalProducts = Product::count();
+        $totalUsers = User::count();
 
-        $topProductName = $topProduct ? $topProduct->name : null;
-
-        $chartDates = [];
-        $chartCounts = [];
-
-        $orders = Order::select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as count'))
-            ->groupBy('date')
-            ->orderBy('date')
+        // Đơn hàng gần đây
+        $recentOrders = Order::with('user')
+            ->latest()
+            ->take(5)
             ->get();
 
-        foreach ($orders as $order) {
-            $chartDates[] = $order->date;
-            $chartCounts[] = $order->count;
+        // Sản phẩm bán chạy
+        $topProducts = Product::withCount(['orderItems as total_sold' => function($query) {
+                $query->whereHas('order', function($q) {
+                    $q->where('status', 'completed');
+                });
+            }])
+            ->orderByDesc('total_sold')
+            ->take(5)
+            ->get();
+
+        // Nếu không có sản phẩm bán chạy, lấy sản phẩm theo lượt bán mặc định
+        if ($topProducts->isEmpty()) {
+            $topProducts = Product::orderByDesc('created_at')->take(5)->get();
         }
 
         return view('admin.dashboard', compact(
-            'orderCount',
+            'todayOrders',
             'todayRevenue',
-            'newCustomers',
-            'topProductName',
-            'chartDates',
-            'chartCounts'
+            'totalProducts',
+            'totalUsers',
+            'recentOrders',
+            'topProducts'
         ));
     }
 }
