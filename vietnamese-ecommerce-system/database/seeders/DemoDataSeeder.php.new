@@ -1,0 +1,227 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Product;
+use App\Models\Banner;
+use App\Models\Post;
+use App\Models\FlashSale;
+use App\Models\Voucher;
+use App\Models\Menu;
+use App\Models\Service;
+use App\Models\DynamicPage;
+use App\Models\Team;
+use App\Models\Ticket;
+use App\Models\FrontendSetting;
+use Illuminate\Support\Facades\Hash;
+
+class DemoDataSeeder extends Seeder
+{
+    public function run()
+    {
+        // Create admin user
+        User::create([
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+            'password' => Hash::make('password'),
+            'role' => 'admin',
+        ]);
+
+        // Create categories
+        $categories = [
+            ['name' => 'Electronics', 'slug' => 'electronics'],
+            ['name' => 'Fashion', 'slug' => 'fashion'],
+            ['name' => 'Home & Living', 'slug' => 'home-living'],
+            ['name' => 'Books', 'slug' => 'books'],
+        ];
+
+        foreach ($categories as $category) {
+            Category::create($category);
+        }
+
+        // Create brands
+        $brands = [
+            ['name' => 'Samsung', 'slug' => 'samsung'],
+            ['name' => 'Nike', 'slug' => 'nike'],
+            ['name' => 'IKEA', 'slug' => 'ikea'],
+            ['name' => 'Penguin Books', 'slug' => 'penguin-books'],
+        ];
+
+        foreach ($brands as $brand) {
+            Brand::create($brand);
+        }
+
+        // Create products
+        $products = [
+            [
+                'name' => 'Samsung Galaxy S21',
+                'slug' => 'samsung-galaxy-s21',
+                'description' => 'Latest Samsung flagship smartphone',
+                'price' => 999.99,
+                'category_id' => 1,
+                'brand_id' => 1,
+            ],
+            [
+                'name' => 'Nike Air Max',
+                'slug' => 'nike-air-max',
+                'description' => 'Comfortable running shoes',
+                'price' => 129.99,
+                'category_id' => 2,
+                'brand_id' => 2,
+            ],
+        ];
+
+        foreach ($products as $product) {
+            Product::create($product);
+        }
+
+        // Create banners
+        $banners = [
+            [
+                'title' => 'Summer Sale',
+                'image' => 'banners/summer-sale.jpg',
+                'link' => '/sale',
+                'status' => 'active',
+            ],
+            [
+                'title' => 'New Arrivals',
+                'image' => 'banners/new-arrivals.jpg',
+                'link' => '/new',
+                'status' => 'active',
+            ],
+        ];
+
+        foreach ($banners as $banner) {
+            Banner::create($banner);
+        }
+
+        // Create posts
+        $posts = [
+            [
+                'title' => 'Shopping Guide 2024',
+                'slug' => 'shopping-guide-2024',
+                'content' => 'Your complete guide to shopping in 2024...',
+                'status' => 'published',
+            ],
+            [
+                'title' => 'Top Fashion Trends',
+                'slug' => 'top-fashion-trends',
+                'content' => 'Discover the latest fashion trends...',
+                'status' => 'published',
+            ],
+        ];
+
+        foreach ($posts as $post) {
+            Post::create($post);
+        }
+
+        // Create flash sales
+        FlashSale::create([
+            'name' => 'Weekend Flash Sale',
+            'start_date' => now(),
+            'end_date' => now()->addDays(2),
+            'discount_percentage' => 20,
+            'status' => 'active',
+        ]);
+
+        // Create vouchers
+        Voucher::create([
+            'code' => 'WELCOME2024',
+            'type' => 'percentage',
+            'value' => 10,
+            'start_date' => now(),
+            'end_date' => now()->addMonths(1),
+            'min_purchase' => 100,
+            'max_discount' => 50,
+            'usage_limit' => 100,
+            'status' => 'active',
+        ]);
+
+        // Create menus
+        $menus = [
+            ['title' => 'Home', 'url' => '/', 'order' => 1],
+            ['title' => 'Shop', 'url' => '/shop', 'order' => 2],
+            ['title' => 'About', 'url' => '/about', 'order' => 3],
+            ['title' => 'Contact', 'url' => '/contact', 'order' => 4],
+        ];
+        foreach ($menus as $menu) {
+            Menu::create($menu);
+        }
+
+        // Create services
+        $services = [
+            ['title' => 'Free Shipping', 'slug' => 'free-shipping', 'description' => 'Free shipping on orders over $50', 'icon' => 'truck', 'order' => 1],
+            ['title' => '24/7 Support', 'slug' => '24-7-support', 'description' => 'Customer support available 24/7', 'icon' => 'headphones', 'order' => 2],
+            ['title' => 'Money Back Guarantee', 'slug' => 'money-back-guarantee', 'description' => '30-day money back guarantee', 'icon' => 'refresh-ccw', 'order' => 3],
+        ];
+        foreach ($services as $service) {
+            Service::create($service);
+        }
+
+        // Create dynamic pages
+        $pages = [
+            ['title' => 'About Us', 'slug' => 'about-us', 'content' => 'About us content here...', 'status' => 'published', 'created_by' => 1],
+            ['title' => 'Privacy Policy', 'slug' => 'privacy-policy', 'content' => 'Privacy policy content here...', 'status' => 'published', 'created_by' => 1],
+            ['title' => 'Terms of Service', 'slug' => 'terms-of-service', 'content' => 'Terms of service content here...', 'status' => 'published', 'created_by' => 1],
+        ];
+        foreach ($pages as $page) {
+            DynamicPage::create($page);
+        }
+
+        // Create team members
+        $teams = [
+            [
+                'name' => 'John Doe',
+                'position' => 'CEO',
+                'description' => 'Founder and CEO',
+                'email' => 'john@example.com',
+                'social_links' => [
+                    'linkedin' => 'https://linkedin.com/johndoe',
+                    'twitter' => 'https://twitter.com/johndoe'
+                ],
+                'order' => 1
+            ],
+            [
+                'name' => 'Jane Smith',
+                'position' => 'CTO',
+                'description' => 'Technical Lead',
+                'email' => 'jane@example.com',
+                'social_links' => [
+                    'linkedin' => 'https://linkedin.com/janesmith',
+                    'twitter' => 'https://twitter.com/janesmith'
+                ],
+                'order' => 2
+            ]
+        ];
+        foreach ($teams as $team) {
+            Team::create($team);
+        }
+
+        // Create tickets
+        $tickets = [
+            [
+                'ticket_number' => 'TKT-001',
+                'subject' => 'Payment Issue',
+                'description' => 'Unable to complete payment',
+                'status' => 'open',
+                'priority' => 'high',
+                'user_id' => 1
+            ],
+            [
+                'ticket_number' => 'TKT-002',
+                'subject' => 'Product Inquiry',
+                'description' => 'Question about product specifications',
+                'status' => 'in_progress',
+                'priority' => 'medium',
+                'user_id' => 1
+            ]
+        ];
+        foreach ($tickets as $ticket) {
+            Ticket::create($ticket);
+        }
+    }
+}
