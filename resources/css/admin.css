@@ -1,0 +1,135 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .side-nav {
+        @apply w-[250px] h-screen overflow-hidden bg-slate-800 fixed left-0 top-0 z-50 -translate-x-full md:translate-x-0 duration-300;
+    }
+
+    .side-menu {
+        @apply h-[50px] flex items-center pl-5 text-white mb-1 relative hover:bg-slate-700/60 transition-all duration-200;
+    }
+
+    .side-menu:hover {
+        @apply transform scale-105;
+    }
+
+    .side-menu--active {
+        @apply bg-slate-700/60;
+    }
+
+    .side-menu__icon {
+        @apply w-5 h-5 mr-3;
+    }
+
+    .side-menu__title {
+        @apply truncate;
+    }
+
+    .content {
+        @apply md:ml-[250px] py-[25px] px-5 min-w-0 min-h-screen bg-slate-100 flex-1 transition-[margin] duration-300;
+    }
+
+    .top-bar {
+        @apply h-[67px] z-[51] flex items-center border-b border-slate-200 fixed top-0 right-0 left-0 bg-white md:left-[250px] transition-[padding,margin] duration-300;
+    }
+
+    .scrollable {
+        @apply h-[calc(100vh-7rem)] overflow-y-auto;
+        scrollbar-width: none;
+    }
+
+    .scrollable::-webkit-scrollbar {
+        @apply hidden;
+    }
+
+    .scrollable__content {
+        @apply px-5 pb-5;
+    }
+
+    /* Dropdown styles */
+    .dropdown {
+        @apply relative;
+    }
+
+    .dropdown-toggle {
+        @apply cursor-pointer;
+    }
+
+    .dropdown-menu {
+        @apply absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg hidden transform transition-all duration-200 ease-out origin-top-right;
+    }
+
+    .dropdown-menu.show {
+        @apply block scale-100;
+    }
+
+    /* Image styles */
+    .image-fit {
+        @apply object-cover w-full h-full;
+    }
+
+    .zoom-in {
+        @apply transform transition-transform duration-300 hover:scale-110;
+    }
+
+    /* Card styles */
+    .card {
+        @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-200;
+    }
+
+    /* Button styles */
+    .btn {
+        @apply px-4 py-2 rounded-lg transition-colors duration-200;
+    }
+
+    .btn-primary {
+        @apply bg-blue-600 text-white hover:bg-blue-700;
+    }
+
+    /* Animation classes */
+    .hover-scale {
+        @apply transition-transform duration-200 hover:scale-105;
+    }
+
+    .hover-shadow {
+        @apply transition-shadow duration-200 hover:shadow-lg;
+    }
+
+    /* Custom rounded corners for sidebar and content */
+    .side-nav {
+        @apply rounded-r-3xl;
+    }
+
+    .content {
+        @apply rounded-tl-3xl rounded-bl-3xl;
+    }
+
+    .top-bar {
+        @apply rounded-tl-3xl;
+    }
+
+    /* Profile menu animation */
+    #profileMenu {
+        @apply transform transition-all duration-200 ease-out opacity-0 scale-95;
+    }
+
+    #profileMenu:not(.hidden) {
+        @apply opacity-100 scale-100;
+    }
+
+    /* Hover effects for menu items */
+    .side-menu {
+        @apply relative overflow-hidden;
+    }
+
+    .side-menu::after {
+        content: '';
+        @apply absolute inset-0 bg-white opacity-0 transition-opacity duration-200;
+    }
+
+    .side-menu:hover::after {
+        @apply opacity-5;
+    }
+}

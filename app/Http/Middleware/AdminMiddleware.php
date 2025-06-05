@@ -11,10 +11,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if (!Auth::check() || Auth::user()->role !== 'admin') {
-            if ($request->expectsJson()) {
-                return response()->json(['message' => 'Unauthorized'], 403);
-            }
-            return redirect()->route('admin.login')->with('error', 'Bạn không có quyền truy cập trang quản trị.');
+            Auth::logout();
+            return redirect()->route('admin.login')->withErrors([
+                'email' => 'Bạn không có quyền truy cập trang quản trị.',
+            ]);
         }
 
         return $next($request);

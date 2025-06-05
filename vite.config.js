@@ -7,6 +7,8 @@ export default defineConfig({
         laravel({
             input: [
                 'resources/css/app.css',
+                'resources/css/admin.css',
+                'resources/css/admin-login.css',
                 'resources/js/app.js',
             ],
             refresh: true,
@@ -39,6 +41,8 @@ export default defineConfig({
         rollupOptions: {
             input: [
                 'resources/css/app.css',
+                'resources/css/admin.css',
+                'resources/css/admin-login.css',
                 'resources/js/app.js',
             ],
         },

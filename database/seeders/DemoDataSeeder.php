@@ -67,7 +67,7 @@ class DemoDataSeeder extends Seeder
                 'price' => 32990000,
                 'category_id' => 1,
                 'brand_id' => 1,
-                'image' => 'uploads/admin/images/logo-haxu-tron.png',
+                'image' => 'images/logo-haxu-tron.png',
             ],
             [
                 'name' => 'Samsung Galaxy S23 Ultra',
@@ -95,9 +95,9 @@ class DemoDataSeeder extends Seeder
 
         // Create product images (example)
         $productImages = [
-            ['product_id' => 1, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
-            ['product_id' => 2, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
-            ['product_id' => 3, 'image_path' => 'uploads/admin/images/logo-haxu-tron.png'],
+            ['product_id' => 1, 'image_path' => 'images/logo-haxu-tron.png'],
+            ['product_id' => 2, 'image_path' => 'images/logo-haxu-tron.png'],
+            ['product_id' => 3, 'image_path' => 'images/logo-haxu-tron.png'],
         ];
 
         foreach ($productImages as $image) {
@@ -108,7 +108,7 @@ class DemoDataSeeder extends Seeder
         $banners = [
             [
                 'title' => 'Khuyến mãi iPhone 14',
-                'image_path' => 'uploads/admin/images/logo-haxu-tron.png',
+                'image_path' => 'images/logo-haxu-tron.png',
                 'link' => '/san-pham/iphone-14-pro-max',
                 'position' => 'home_top',
                 'status' => true,

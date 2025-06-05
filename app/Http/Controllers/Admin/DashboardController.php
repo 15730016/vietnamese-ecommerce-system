@@ -13,47 +13,42 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Lấy thống kê cho ngày hôm nay
-        $today = Carbon::today();
-        
-        // Đơn hàng và doanh thu hôm nay
-        $todayOrders = Order::whereDate('created_at', $today)->count();
-        $todayRevenue = Order::whereDate('created_at', $today)
-            ->where('status', 'completed')
-            ->sum('total');
+        try {
+            // Lấy thống kê cho ngày hôm nay
+            $today = Carbon::today();
+            
+            $todayOrders = Order::whereDate('created_at', $today)->count();
+            $todayRevenue = Order::whereDate('created_at', $today)->sum('total');
+            $totalProducts = Product::count();
+            $totalUsers = User::count();
 
-        // Tổng số sản phẩm và người dùng
-        $totalProducts = Product::count();
-        $totalUsers = User::count();
+            // Lấy 5 đơn hàng gần đây nhất
+            $recentOrders = Order::with('user')
+                                ->latest()
+                                ->take(5)
+                                ->get();
 
-        // Đơn hàng gần đây
-        $recentOrders = Order::with('user')
-            ->latest()
-            ->take(5)
-            ->get();
+            // Lấy 5 sản phẩm bán chạy nhất
+            $topProducts = Product::withCount(['orderItems as total_sold' => function($query) {
+                                    $query->whereHas('order', function($q) {
+                                        $q->where('status', 'completed');
+                                    });
+                                }])
+                                ->orderByDesc('total_sold')
+                                ->take(5)
+                                ->get();
 
-        // Sản phẩm bán chạy
-        $topProducts = Product::withCount(['orderItems as total_sold' => function($query) {
-                $query->whereHas('order', function($q) {
-                    $q->where('status', 'completed');
-                });
-            }])
-            ->orderByDesc('total_sold')
-            ->take(5)
-            ->get();
-
-        // Nếu không có sản phẩm bán chạy, lấy sản phẩm theo lượt bán mặc định
-        if ($topProducts->isEmpty()) {
-            $topProducts = Product::orderByDesc('created_at')->take(5)->get();
+            return view('admin.dashboard', compact(
+                'todayOrders',
+                'todayRevenue',
+                'totalProducts',
+                'totalUsers',
+                'recentOrders',
+                'topProducts'
+            ));
+        } catch (\Exception $e) {
+            \Log::error('Dashboard Error: ' . $e->getMessage());
+            return redirect()->back()->withErrors('Đã xảy ra lỗi khi tải trang Dashboard.');
         }
-
-        return view('admin.dashboard', compact(
-            'todayOrders',
-            'todayRevenue',
-            'totalProducts',
-            'totalUsers',
-            'recentOrders',
-            'topProducts'
-        ));
     }
 }

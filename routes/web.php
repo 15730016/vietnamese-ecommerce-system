@@ -57,6 +57,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware(['auth', 'can:admin'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
+        // Admin Profile Routes
+        Route::get('/profile', [\App\Http\Controllers\Admin\ProfileController::class, 'index'])->name('profile');
+        Route::get('/profile/reset-password', [\App\Http\Controllers\Admin\ProfileController::class, 'resetPassword'])->name('password.reset');
+        Route::put('/profile/password', [\App\Http\Controllers\Admin\ProfileController::class, 'updatePassword'])->name('password.update');
+        Route::get('/help', [\App\Http\Controllers\Admin\ProfileController::class, 'help'])->name('help');
+
         // Frontend Customization
         Route::prefix('frontend')->name('frontend.')->group(function () {
             Route::get('/general', [FrontendCustomizationController::class, 'general'])->name('general');

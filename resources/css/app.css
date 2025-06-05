@@ -2,18 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-    body {
-        @apply bg-gray-100;
+/* Custom Styles */
+@layer components {
+    .login-card {
+        @apply bg-white p-8 rounded-xl shadow-lg w-full max-w-md mx-auto;
+        animation: fadeIn 0.5s ease-out;
+    }
+
+    .form-input {
+        @apply w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500;
+    }
+
+    .form-label {
+        @apply block text-sm font-medium text-gray-700 mb-1;
+    }
+
+    .submit-button {
+        @apply w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors;
+    }
+
+    .error-message {
+        @apply mb-4 p-4 bg-red-100 text-red-700 rounded;
     }
 }
 
-@layer components {
-    .form-input {
-        @apply w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition;
-    }
-    
-    .btn-primary {
-        @apply w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition;
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

@@ -1,68 +1,60 @@
-@extends('layouts.admin')
+@extends('layouts.admin-layout')
 
-@section('title', 'Trang Chủ')
+@section('title', 'Dashboard')
 
 @section('content')
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-    <div class="bg-white p-6 rounded-lg shadow">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <div class="flex items-center">
             <div class="p-3 rounded-full bg-blue-100 text-blue-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
             </div>
             <div class="ml-4">
-                <p class="mb-2 text-sm font-medium text-gray-600">Đơn Hàng Hôm Nay</p>
+                <p class="text-sm font-medium text-gray-600">Đơn Hàng Hôm Nay</p>
                 <p class="text-lg font-semibold text-gray-700">{{ $todayOrders ?? 0 }}</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <div class="flex items-center">
             <div class="p-3 rounded-full bg-green-100 text-green-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             </div>
             <div class="ml-4">
-                <p class="mb-2 text-sm font-medium text-gray-600">Doanh Thu Hôm Nay</p>
+                <p class="text-sm font-medium text-gray-600">Doanh Thu Hôm Nay</p>
                 <p class="text-lg font-semibold text-gray-700">{{ number_format($todayRevenue ?? 0, 0, ',', '.') }}đ</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <div class="flex items-center">
             <div class="p-3 rounded-full bg-yellow-100 text-yellow-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 7 9 19l-5.5-5.5 1.41-1.41L9 16.17 19.59 5.59 21 7Z"/></svg>
             </div>
             <div class="ml-4">
-                <p class="mb-2 text-sm font-medium text-gray-600">Tổng Sản Phẩm</p>
+                <p class="text-sm font-medium text-gray-600">Tổng Sản Phẩm</p>
                 <p class="text-lg font-semibold text-gray-700">{{ $totalProducts ?? 0 }}</p>
             </div>
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <div class="flex items-center">
             <div class="p-3 rounded-full bg-purple-100 text-purple-600">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
             </div>
             <div class="ml-4">
-                <p class="mb-2 text-sm font-medium text-gray-600">Tổng Người Dùng</p>
+                <p class="text-sm font-medium text-gray-600">Tổng Người Dùng</p>
                 <p class="text-lg font-semibold text-gray-700">{{ $totalUsers ?? 0 }}</p>
             </div>
         </div>
     </div>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <div class="bg-white p-6 rounded-lg shadow">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <h2 class="text-lg font-semibold mb-4">Đơn Hàng Gần Đây</h2>
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
@@ -100,7 +92,7 @@
         </div>
     </div>
 
-    <div class="bg-white p-6 rounded-lg shadow">
+    <div class="bg-white p-6 rounded-lg shadow-sm">
         <h2 class="text-lg font-semibold mb-4">Sản Phẩm Bán Chạy</h2>
         <div class="space-y-4">
             @forelse($topProducts ?? [] as $product)

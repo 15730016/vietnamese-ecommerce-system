@@ -1,14 +1,9 @@
-import './bootstrap';
 import '../css/app.css';
 
-import { createApp } from 'vue';
+// Import axios for AJAX requests
 import axios from 'axios';
-
-const app = createApp({});
-
-app.config.globalProperties.$axios = axios;
-
 window.axios = axios;
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-app.mount('#app');
+// Import mobile menu functionality
+import './mobile-menu';
