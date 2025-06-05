@@ -3,52 +3,70 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         try {
-            // Lấy thống kê cho ngày hôm nay
-            $today = Carbon::today();
-            
-            $todayOrders = Order::whereDate('created_at', $today)->count();
-            $todayRevenue = Order::whereDate('created_at', $today)->sum('total');
-            $totalProducts = Product::count();
+            // Thống kê tổng quan
             $totalUsers = User::count();
+            $totalOrders = Order::count();
+            $totalRevenue = Order::where('status', 'completed')->sum('total_amount');
+            $totalProducts = Product::count();
 
-            // Lấy 5 đơn hàng gần đây nhất
+            // Thống kê tăng trưởng so với tháng trước
+            $lastMonth = Carbon::now()->subMonth();
+            $lastMonthUsers = User::whereMonth('created_at', $lastMonth->month)->count();
+            $lastMonthOrders = Order::whereMonth('created_at', $lastMonth->month)->count();
+            $lastMonthRevenue = Order::where('status', 'completed')
+                ->whereMonth('created_at', $lastMonth->month)
+                ->sum('total_amount');
+
+            // Tính phần trăm tăng trưởng
+            $userGrowth = $lastMonthUsers > 0 ? (($totalUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
+            $orderGrowth = $lastMonthOrders > 0 ? (($totalOrders - $lastMonthOrders) / $lastMonthOrders) * 100 : 0;
+            $revenueGrowth = $lastMonthRevenue > 0 ? (($totalRevenue - $lastMonthRevenue) / $lastMonthRevenue) * 100 : 0;
+
+            // Lấy dữ liệu biểu đồ doanh thu 12 tháng
+            $revenueData = [];
+            for ($i = 11; $i >= 0; $i--) {
+                $month = Carbon::now()->subMonths($i);
+                $revenue = Order::where('status', 'completed')
+                    ->whereYear('created_at', $month->year)
+                    ->whereMonth('created_at', $month->month)
+                    ->sum('total_amount');
+                $revenueData[] = [
+                    'month' => 'T' . ($month->month),
+                    'revenue' => $revenue / 1000000 // Chuyển đổi sang đơn vị triệu
+                ];
+            }
+
+            // Lấy danh sách đơn hàng gần đây
             $recentOrders = Order::with('user')
-                                ->latest()
-                                ->take(5)
-                                ->get();
-
-            // Lấy 5 sản phẩm bán chạy nhất
-            $topProducts = Product::withCount(['orderItems as total_sold' => function($query) {
-                                    $query->whereHas('order', function($q) {
-                                        $q->where('status', 'completed');
-                                    });
-                                }])
-                                ->orderByDesc('total_sold')
-                                ->take(5)
-                                ->get();
+                ->orderBy('created_at', 'desc')
+                ->take(5)
+                ->get();
 
             return view('admin.dashboard', compact(
-                'todayOrders',
-                'todayRevenue',
-                'totalProducts',
                 'totalUsers',
-                'recentOrders',
-                'topProducts'
+                'totalOrders',
+                'totalRevenue',
+                'totalProducts',
+                'userGrowth',
+                'orderGrowth',
+                'revenueGrowth',
+                'revenueData',
+                'recentOrders'
             ));
         } catch (\Exception $e) {
-            \Log::error('Dashboard Error: ' . $e->getMessage());
-            return redirect()->back()->withErrors('Đã xảy ra lỗi khi tải trang Dashboard.');
+            \Log::error('Lỗi tại DashboardController@index: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra khi tải trang Bảng điều khiển');
         }
     }
 }

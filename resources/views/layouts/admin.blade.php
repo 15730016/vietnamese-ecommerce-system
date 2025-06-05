@@ -9,7 +9,7 @@
 </head>
 <body class="bg-gray-50 font-sans leading-normal tracking-normal">
     <!-- Top Navigation -->
-    <nav class="bg-white shadow-lg">
+    <nav class="bg-white shadow-lg sticky top-0 left-0 right-0 z-50 backdrop-blur-sm">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between h-16">
                 <!-- Logo -->
@@ -209,7 +209,7 @@
 
     <div class="min-h-screen bg-gray-50">
         <!-- Main content -->
-        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8 mt-16">
             <div class="p-6">
                 @if(session('success'))
                     <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">

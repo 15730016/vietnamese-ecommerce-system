@@ -13,8 +13,20 @@ if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php'))
 // Register the Composer autoloader...
 require __DIR__.'/../vendor/autoload.php';
 
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Foundation\Application as LaravelApplication;
+use Illuminate\Http\Request as HttpRequest;
+
 // Bootstrap Laravel and handle the request...
-/** @var Application $app */
+/** @var LaravelApplication $app */
 $app = require_once __DIR__.'/../bootstrap/app.php';
 
-$app->handleRequest(Request::capture());
+$kernel = $app->make(Kernel::class);
+
+$response = $kernel->handle(
+    $request = HttpRequest::capture()
+);
+
+$response->send();
+
+$kernel->terminate($request, $response);

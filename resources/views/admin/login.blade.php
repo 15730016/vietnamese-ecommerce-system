@@ -61,8 +61,9 @@
         }
         
         .glass-effect {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         /* Custom focus styles */
@@ -96,7 +97,7 @@
             </div>
 
             <!-- Login Form -->
-            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-5">
+            <form method="POST" action="{{ route('admin.login.submit') }}" class="space-y-5" autocomplete="off">
                 @csrf
                 
                 <!-- Email -->
@@ -104,7 +105,7 @@
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <div class="relative">
                         <input type="email" name="email" id="email" required 
-                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/50 hover:bg-white focus:bg-white"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
                                placeholder="Nhập email của bạn"
                                autocomplete="email">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -118,7 +119,7 @@
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
                     <div class="relative">
                         <input type="password" name="password" id="password" required 
-                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/50 hover:bg-white focus:bg-white"
+                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
                                placeholder="Nhập mật khẩu của bạn"
                                autocomplete="current-password">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\CategoryController;
 use App\Http\Controllers\Web\ProductController;
@@ -8,7 +10,6 @@ use App\Http\Controllers\Web\CartController;
 use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\PaymentController;
 use App\Http\Controllers\Web\ProfileController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\BrandController as AdminBrandController;
 use App\Http\Controllers\Admin\ProductControllerAdmin;
@@ -47,14 +48,12 @@ Route::middleware('auth')->group(function () {
 
 use App\Http\Controllers\Admin\AuthController;
 
-Route::redirect('/admin', '/admin/login');
-
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::middleware(['auth', 'can:admin'])->group(function () {
+    Route::middleware(['auth', 'admin'])->group(function () {
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
         // Admin Profile Routes
