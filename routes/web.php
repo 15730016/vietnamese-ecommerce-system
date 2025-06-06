@@ -38,8 +38,23 @@ Route::get('/payment/vnpay/return', [PaymentController::class, 'returnVnpay'])->
 Route::post('/payment/momo/notify', [PaymentController::class, 'notifyMomo'])->name('payment.momo.notify');
 Route::get('/payment/momo/return', [PaymentController::class, 'returnMomo'])->name('payment.momo.return');
 
-// Authentication & Profile
-Auth::routes();
+use App\Http\Controllers\Web\Auth\LoginController as WebLoginController;
+use App\Http\Controllers\Web\Auth\RegisterController as WebRegisterController;
+use App\Http\Controllers\Web\Auth\ForgotPasswordController as WebForgotPasswordController;
+use App\Http\Controllers\Web\Auth\ResetPasswordController as WebResetPasswordController;
+
+// Authentication & Profile for frontend website
+Route::get('login', [WebLoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [WebLoginController::class, 'login']);
+Route::post('logout', [WebLoginController::class, 'logout'])->name('logout');
+
+Route::get('register', [WebRegisterController::class, 'showRegistrationForm'])->name('register');
+Route::post('register', [WebRegisterController::class, 'register']);
+
+Route::get('password/reset', [WebForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [WebForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [WebResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [WebResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
@@ -48,12 +63,21 @@ Route::middleware('auth')->group(function () {
 
 use App\Http\Controllers\Admin\AuthController;
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::prefix('admin')->name('admin.')->middleware('web')->group(function () {
+    Route::get('/', function () {
+        if (auth('admin')->check()) {
+            return redirect()->route('admin.dashboard');
+        }
+        return redirect()->route('admin.login');
+    });
 
-    Route::middleware(['auth', 'admin'])->group(function () {
+    Route::middleware('guest:admin')->group(function () {
+        Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+        Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
+    });
+
+    Route::middleware('auth:admin')->group(function () {
+        Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
         // Admin Profile Routes

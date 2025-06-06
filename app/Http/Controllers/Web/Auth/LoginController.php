@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Web\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('admin.login');
+        return view('web.auth.login');
     }
 
     public function login(Request $request)
@@ -20,18 +20,10 @@ class AuthController extends Controller
             'password' => ['required'],
         ]);
 
-        if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
-            // Check if user is admin
-            if (Auth::guard('admin')->user()->role !== 'admin') {
-                Auth::guard('admin')->logout();
-                return back()->withErrors([
-                    'email' => 'Bạn không có quyền truy cập trang quản trị.',
-                ]);
-            }
-
-            return redirect()->intended(route('admin.dashboard'));
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
@@ -41,12 +33,12 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('admin')->logout();
+        Auth::logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
 
-        return redirect(route('admin.login'));
+        return redirect('/');
     }
 }

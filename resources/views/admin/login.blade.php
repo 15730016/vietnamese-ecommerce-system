@@ -104,10 +104,12 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
                     <div class="relative">
-                        <input type="email" name="email" id="email" required 
-                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
-                               placeholder="Nhập email của bạn"
-                               autocomplete="email">
+                <input type="email" name="email" id="email" required 
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
+                       placeholder="Nhập email của bạn"
+                       autocomplete="email"
+                       value="admin@haxuvina.com"
+                       readonly>
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-envelope text-gray-400"></i>
                         </div>
@@ -118,10 +120,12 @@
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
                     <div class="relative">
-                        <input type="password" name="password" id="password" required 
-                               class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
-                               placeholder="Nhập mật khẩu của bạn"
-                               autocomplete="current-password">
+                <input type="password" name="password" id="password" required 
+                       class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus-custom transition-all pl-11 bg-white/80 hover:bg-white focus:bg-white"
+                       placeholder="Nhập mật khẩu của bạn"
+                       autocomplete="current-password"
+                       value="password123"
+                       readonly>
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-lock text-gray-400"></i>
                         </div>

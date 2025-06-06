@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check() || auth()->user()->role !== 'admin') {
+        if (!auth('admin')->check() || auth('admin')->user()->role !== 'admin') {
             if ($request->ajax()) {
                 return response()->json(['error' => 'Không có quyền truy cập'], 403);
             }
